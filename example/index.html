@@ -10,23 +10,32 @@
       document.getElementById('log-level').innerText = jslogger.getLogLevel();
 
       jslogger.setLogLevel(0);
+      jslogger.debug('This is a test');
       jslogger.log('This is a test');
       jslogger.info('This is a test');
       jslogger.warn('This is a test');
       jslogger.error('This is a test');
 
       jslogger.setLogLevel(1);
+      jslogger.debug('This is a test');
       jslogger.log('This is a test');
       jslogger.info('This is a test');
       jslogger.warn('This is a test');
       jslogger.error('This is a test');
 
       jslogger.setLogLevel(2);
+      jslogger.debug('This is a test');
       jslogger.log('This is a test');
       jslogger.info('This is a test');
       jslogger.warn('This is a test');
       jslogger.error('This is a test');
 
+      jslogger.setLogLevel(3);
+      jslogger.debug('This is a test');
+      jslogger.log('This is a test');
+      jslogger.info('This is a test');
+      jslogger.warn('This is a test');
+      jslogger.error('This is a test');
     }
 
     document.addEventListener('DOMContentLoaded', function(){

@@ -2,10 +2,11 @@ var jslogger = (function(){
     'use strict';
 
     var logLevels = {
+            debug: 3,
             error: 0,
             info: 2,
             log: 2,
-            trace: 3,
+            trace: 4,
             warn: 1
         },
         logLevel = 0;
@@ -35,6 +36,7 @@ var jslogger = (function(){
     function setLogLevel(level){
         logLevel = level;
         document.cookie = 'logLevel=' + level;
+        return 'Log level set to ' + level;
     }
 
     function parseArgs(args){
@@ -45,6 +47,10 @@ var jslogger = (function(){
         if(!!console && typeof console[fnKey] === 'function' && logLevel >= logLevels[fnKey]){
             apply(console[fnKey], args);
         }
+    }
+
+    function debug(){
+        consoleCaller('log', parseArgs(arguments));
     }
 
     function error(){
@@ -70,6 +76,7 @@ var jslogger = (function(){
     setLogLevel(getLogLevel());
 
     return {
+        debug: debug,
         error: error,
         getLogLevel: getLogLevel,
         info: info,
