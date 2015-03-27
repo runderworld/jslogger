@@ -6,7 +6,7 @@ var jslogger = (function(){
             error: 0,
             info: 2,
             log: 2,
-            trace: 4,
+            trace: 3,
             warn: 1
         },
         logLevel = 0;
@@ -50,7 +50,7 @@ var jslogger = (function(){
     }
 
     function debug(){
-        consoleCaller('log', parseArgs(arguments));
+        consoleCaller('debug', parseArgs(arguments));
     }
 
     function error(){

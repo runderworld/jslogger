@@ -234,39 +234,39 @@
             var debug;
 
             beforeEach(function(){
-                jslogger.setLogLevel(2);
-                debug = console.log;
+                jslogger.setLogLevel(3);
+                debug = console.debug;
             });
 
             afterEach(function(){
-                console.log = debug;
+                console.debug = debug;
             });
 
-            it('should call console.log', function(){
-                console.log = jasmine.createSpy('log');
+            it('should call console.debug (albeit deprecated)', function(){
+                console.debug = jasmine.createSpy('debug');
 
                 jslogger.debug();
 
-                expect(console.log).toHaveBeenCalled();
+                expect(console.debug).toHaveBeenCalled();
             });
 
-            it('should call console.log with a single argument', function(){
-                console.log = jasmine.createSpy('log');
+            it('should call console.debug with a single argument', function(){
+                console.debug = jasmine.createSpy('debug');
 
                 jslogger.debug('test');
 
-                expect(console.log).toHaveBeenCalledWith('test');
+                expect(console.debug).toHaveBeenCalledWith('test');
             });
 
-            it('should call console.log with a single argument', function(){
-                console.log = jasmine.createSpy('log');
+            it('should call console.debug with a single argument', function(){
+                console.debug = jasmine.createSpy('debug');
 
                 jslogger.debug('test1', 'test2', 'test3', 'test4');
 
-                expect(console.log).toHaveBeenCalledWith('test1', 'test2', 'test3', 'test4');
+                expect(console.debug).toHaveBeenCalledWith('test1', 'test2', 'test3', 'test4');
             });
 
-            it('should not throw an error if console.log does not exist', function(){
+            it('should not throw an error if console.debug does not exist (esp. because it\'s deprecated!)', function(){
                 console.debug = undefined;
 
                 function logger(){
@@ -285,18 +285,18 @@
                 expect(document.cookie.match(/logLevel/).length).toBe(1);
             });
 
-            it('should not call trace if log level is < 4', function(){
-                jslogger.setLogLevel(3);
+            it('should not call trace if log level is < 3', function(){
+                jslogger.setLogLevel(2);
                 console.trace = jasmine.createSpy('trace');
                 jslogger.trace('test');
                 expect(console.trace).not.toHaveBeenCalled();
             });
 
             it('should not call debug if log level is < 3', function(){
-                jslogger.setLogLevel(1);
-                console.log = jasmine.createSpy('log');
+                jslogger.setLogLevel(2);
+                console.debug = jasmine.createSpy('debug');
                 jslogger.debug('test');
-                expect(console.log).not.toHaveBeenCalled();
+                expect(console.debug).not.toHaveBeenCalled();
             });
 
             it('should not call log if log level is < 2', function(){
@@ -304,6 +304,13 @@
                 console.log = jasmine.createSpy('log');
                 jslogger.log('test');
                 expect(console.log).not.toHaveBeenCalled();
+            });
+
+            it('should not call info if log level is < 2', function(){
+                jslogger.setLogLevel(1);
+                console.info = jasmine.createSpy('info');
+                jslogger.info('test');
+                expect(console.info).not.toHaveBeenCalled();
             });
 
             it('should not call warn if log level is < 1', function(){
