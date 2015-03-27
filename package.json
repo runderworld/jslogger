@@ -1,5 +1,5 @@
 {
-  "name": "JSLogger",
+  "name": "jslogger",
   "description": "Logger utility to limit log output in a production environment.",
   "version": "1.1.1",
   "devDependencies": {
