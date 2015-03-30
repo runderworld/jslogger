@@ -11,7 +11,7 @@
             var log;
 
             beforeEach(function(){
-                jslogger.setLogLevel(2);
+                jslogger.setLogLevel(3);
                 log = console.log;
             });
 
@@ -234,7 +234,7 @@
             var debug;
 
             beforeEach(function(){
-                jslogger.setLogLevel(3);
+                jslogger.setLogLevel(4);
                 debug = console.debug;
             });
 
@@ -278,46 +278,269 @@
         });
 
         describe('setLogLevel', function(){
+            var error,
+                warn,
+                info,
+                log,
+                debug,
+                trace;
 
-            it('should set log level cookie', function(){
-                document.cookie = 'test=test';
-                jslogger.setLogLevel(0);
-                expect(document.cookie.match(/logLevel/).length).toBe(1);
+            beforeEach(function(){
+                error = console.error;
+                warn = console.warn;
+                info = console.info;
+                log = console.log;
+                debug = console.debug;
+                trace = console.trace;
             });
 
-            it('should not call trace if log level is < 3', function(){
-                jslogger.setLogLevel(2);
-                console.trace = jasmine.createSpy('trace');
-                jslogger.trace('test');
-                expect(console.trace).not.toHaveBeenCalled();
+            afterEach(function(){
+                console.error = error;
+                console.warn = warn;
+                console.info = info;
+                console.log = log;
+                console.debug = debug;
+                console.trace = trace;
             });
 
-            it('should not call debug if log level is < 3', function(){
-                jslogger.setLogLevel(2);
-                console.debug = jasmine.createSpy('debug');
-                jslogger.debug('test');
-                expect(console.debug).not.toHaveBeenCalled();
+            describe('setLogLevel(0)', function(){
+
+                beforeEach(function(){
+                    document.cookie = 'test=test';
+                    jslogger.setLogLevel(0);
+                });
+
+                it('should set log level cookie', function(){
+                    expect(document.cookie.match(/logLevel/).length).toBe(1);
+                });
+
+                it('SHOULD call console.error if log level is < 1', function(){
+                    console.error = jasmine.createSpy('error');
+                    jslogger.error();
+                    expect(console.error).toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.warn if log level is < 1', function(){
+                    console.warn = jasmine.createSpy('warn');
+                    jslogger.warn();
+                    expect(console.warn).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.info if log level is < 1', function(){
+                    console.info = jasmine.createSpy('info');
+                    jslogger.info();
+                    expect(console.info).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.log if log level is < 1', function(){
+                    console.log = jasmine.createSpy('log');
+                    jslogger.log();
+                    expect(console.log).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.debug if log level is < 1', function(){
+                    console.debug = jasmine.createSpy('debug');
+                    jslogger.debug();
+                    expect(console.debug).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.trace if log level is < 1', function(){
+                    console.trace = jasmine.createSpy('trace');
+                    jslogger.trace();
+                    expect(console.trace).not.toHaveBeenCalled();
+                });
             });
 
-            it('should not call log if log level is < 2', function(){
-                jslogger.setLogLevel(1);
-                console.log = jasmine.createSpy('log');
-                jslogger.log('test');
-                expect(console.log).not.toHaveBeenCalled();
+            describe('setLogLevel(1)', function(){
+
+                beforeEach(function(){
+                    document.cookie = 'test=test';
+                    jslogger.setLogLevel(1);
+                });
+
+                it('should set log level cookie', function(){
+                    expect(document.cookie.match(/logLevel/).length).toBe(1);
+                });
+
+                it('SHOULD call console.error if log level is < 2', function(){
+                    console.error = jasmine.createSpy('error');
+                    jslogger.error();
+                    expect(console.error).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.warn if log level is < 2', function(){
+                    console.warn = jasmine.createSpy('warn');
+                    jslogger.warn();
+                    expect(console.warn).toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.info if log level is < 2', function(){
+                    console.info = jasmine.createSpy('info');
+                    jslogger.info();
+                    expect(console.info).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.log if log level is < 2', function(){
+                    console.log = jasmine.createSpy('log');
+                    jslogger.log();
+                    expect(console.log).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.debug if log level is < 2', function(){
+                    console.debug = jasmine.createSpy('debug');
+                    jslogger.debug();
+                    expect(console.debug).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.trace if log level is < 2', function(){
+                    console.trace = jasmine.createSpy('trace');
+                    jslogger.trace();
+                    expect(console.trace).not.toHaveBeenCalled();
+                });
             });
 
-            it('should not call info if log level is < 2', function(){
-                jslogger.setLogLevel(1);
-                console.info = jasmine.createSpy('info');
-                jslogger.info('test');
-                expect(console.info).not.toHaveBeenCalled();
+            describe('setLogLevel(2)', function(){
+
+                beforeEach(function(){
+                    document.cookie = 'test=test';
+                    jslogger.setLogLevel(2);
+                });
+
+                it('should set log level cookie', function(){
+                    expect(document.cookie.match(/logLevel/).length).toBe(1);
+                });
+
+                it('SHOULD call console.error if log level is < 3', function(){
+                    console.error = jasmine.createSpy('error');
+                    jslogger.error();
+                    expect(console.error).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.warn if log level is < 3', function(){
+                    console.warn = jasmine.createSpy('warn');
+                    jslogger.warn();
+                    expect(console.warn).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.info if log level is < 3', function(){
+                    console.info = jasmine.createSpy('info');
+                    jslogger.info();
+                    expect(console.info).toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.log if log level is < 3', function(){
+                    console.log = jasmine.createSpy('log');
+                    jslogger.log();
+                    expect(console.log).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.debug if log level is < 3', function(){
+                    console.debug = jasmine.createSpy('debug');
+                    jslogger.debug();
+                    expect(console.debug).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.trace if log level is < 3', function(){
+                    console.trace = jasmine.createSpy('trace');
+                    jslogger.trace();
+                    expect(console.trace).not.toHaveBeenCalled();
+                });
             });
 
-            it('should not call warn if log level is < 1', function(){
-                jslogger.setLogLevel(0);
-                console.warn = jasmine.createSpy('warn');
-                jslogger.warn('test');
-                expect(console.warn).not.toHaveBeenCalled();
+            describe('setLogLevel(3)', function(){
+
+                beforeEach(function(){
+                    document.cookie = 'test=test';
+                    jslogger.setLogLevel(3);
+                });
+
+                it('should set log level cookie', function(){
+                    expect(document.cookie.match(/logLevel/).length).toBe(1);
+                });
+
+                it('SHOULD call console.error if log level is < 4', function(){
+                    console.error = jasmine.createSpy('error');
+                    jslogger.error();
+                    expect(console.error).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.warn if log level is < 4', function(){
+                    console.warn = jasmine.createSpy('warn');
+                    jslogger.warn();
+                    expect(console.warn).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.info if log level is < 4', function(){
+                    console.info = jasmine.createSpy('info');
+                    jslogger.info();
+                    expect(console.info).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.log if log level is < 4', function(){
+                    console.log = jasmine.createSpy('log');
+                    jslogger.log();
+                    expect(console.log).toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.debug if log level is < 4', function(){
+                    console.debug = jasmine.createSpy('debug');
+                    jslogger.debug();
+                    expect(console.debug).not.toHaveBeenCalled();
+                });
+
+                it('SHOULD NOT call console.trace if log level is < 4', function(){
+                    console.trace = jasmine.createSpy('trace');
+                    jslogger.trace();
+                    expect(console.trace).not.toHaveBeenCalled();
+                });
+            });
+
+            describe('setLogLevel(4)', function(){
+
+                beforeEach(function(){
+                    document.cookie = 'test=test';
+                    jslogger.setLogLevel(4);
+                });
+
+                it('should set log level cookie', function(){
+                    expect(document.cookie.match(/logLevel/).length).toBe(1);
+                });
+
+                it('SHOULD call console.error if log level is <= 4', function(){
+                    console.error = jasmine.createSpy('error');
+                    jslogger.error();
+                    expect(console.error).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.warn if log level is <= 4', function(){
+                    console.warn = jasmine.createSpy('warn');
+                    jslogger.warn();
+                    expect(console.warn).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.info if log level is <= 4', function(){
+                    console.info = jasmine.createSpy('info');
+                    jslogger.info();
+                    expect(console.info).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.log if log level is <= 4', function(){
+                    console.log = jasmine.createSpy('log');
+                    jslogger.log();
+                    expect(console.log).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.debug if log level is <= 4', function(){
+                    console.debug = jasmine.createSpy('debug');
+                    jslogger.debug();
+                    expect(console.debug).toHaveBeenCalled();
+                });
+
+                it('SHOULD call console.trace if log level is <= 4', function(){
+                    console.trace = jasmine.createSpy('trace');
+                    jslogger.trace();
+                    expect(console.trace).toHaveBeenCalled();
+                });
             });
         });
 
